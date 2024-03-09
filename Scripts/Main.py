@@ -62,7 +62,7 @@ warden_spawn = "execute at PlonkerJimm run summon warden ~ ~ ~"
 #http://localhost:4567/swagger
 
 # Auto live commands
-live_golem_spawn = "summon iron_golem -113 130 370"
+live_golem_spawn = "execute at PlonkerJimm run summon iron_golem -113 130 370"
 live_zombie_spawn = "summon zombie -113 130 370{ArmorItems:[{},{},{},{id:\"minecraft:oak_button\",Count:1b}]}"
 live_tnt_spawn = "summon tnt -113 130 370 {fuse:20}"
 live_warden_spawn = "summon warden -113 130 370"
