@@ -61,6 +61,12 @@ warden_spawn = "execute at PlonkerJimm run summon warden ~ ~ ~"
 #mcstacker.net
 #http://localhost:4567/swagger
 
+# Auto live commands
+live_golem_spawn = "summon iron_golem -113 130 370"
+live_zombie_spawn = "summon zombie -113 130 370{ArmorItems:[{},{},{},{id:\"minecraft:oak_button\",Count:1b}]}"
+live_tnt_spawn = "summon tnt -113 130 370 {fuse:20}"
+live_warden_spawn = "summon warden -113 130 370"
+
 threading.Thread(target=play_audio).start()
 
 print("Input your stream id: ")
@@ -69,46 +75,52 @@ while chat.is_alive():
     for c in chat.get().sync_items():
         message = c.message
         print(f"{c.datetime} [{c.author.name}]- {c.message}")
-        if message.lower() == "creeper":
+        if message.lower() == "golem":
             headers = {
                 'accept': '*/*',
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
             data = {
-                'command': creeper_spawn,
+                'command': live_golem_spawn,
                 'time': ''
             }
             response = requests.post(command_url, headers=headers, data=data)
             print(response)
-        elif message.lower() == "ender":
+            thread = threading.Thread(target=text_to_speech, args=(message,))
+            thread.start()
+        elif message.lower() == "zombie":
             headers = {
                 'accept': '*/*',
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
             data = {
-                'command': ender_spawn,
+                'command': live_zombie_spawn,
                 'time': ''
             }
             response = requests.post(command_url, headers=headers, data=data)
             print(response)
+            thread = threading.Thread(target=text_to_speech, args=(message,))
+            thread.start()
+        elif message.lower() == "tnt":
+            headers = {
+                'accept': '*/*',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            data = {
+                'command': live_tnt_spawn,
+                'time': ''
+            }
+            response = requests.post(command_url, headers=headers, data=data)
+            print(response)
+            thread = threading.Thread(target=text_to_speech, args=(message,))
+            thread.start()
         elif message.lower() == "warden":
             headers = {
                 'accept': '*/*',
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
             data = {
-                'command': warden_spawn,
-                'time': ''
-            }
-            response = requests.post(command_url, headers=headers, data=data)
-            print(response)
-        else:#message.lower() == "zombie":
-            headers = {
-                'accept': '*/*',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            data = {
-                'command': zombie_spawn1 + message + zombie_spawn2,
+                'command': live_warden_spawn,
                 'time': ''
             }
             response = requests.post(command_url, headers=headers, data=data)
