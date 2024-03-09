@@ -70,7 +70,7 @@ live_warden_spawn = "summon warden -113 130 370"
 threading.Thread(target=play_audio).start()
 
 
-def live_zombie_spawn():
+def live_zombie_spawn_func():
     headers = {
         'accept': '*/*',
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,7 +81,7 @@ def live_zombie_spawn():
     }
     response = requests.post(command_url, headers=headers, data=data)
     print(response)
-def live_golem_spawn():
+def live_golem_spawn_func():
     headers = {
         'accept': '*/*',
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -100,17 +100,17 @@ while chat.is_alive():
         message = c.message
         print(f"{c.datetime} [{c.author.name}]- {c.message}")
         if message.lower() == "golem":
-            live_golem_spawn()
-            live_golem_spawn()
-            live_golem_spawn()
+            live_golem_spawn_func()
+            live_golem_spawn_func()
+            live_golem_spawn_func()
             thread = threading.Thread(target=text_to_speech, args=(message,))
             thread.start()
         elif message.lower() == "zombie":
-            live_zombie_spawn()
-            live_zombie_spawn()
-            live_zombie_spawn()
-            live_zombie_spawn()
-            live_zombie_spawn()
+            live_zombie_spawn_func()
+            live_zombie_spawn_func()
+            live_zombie_spawn_func()
+            live_zombie_spawn_func()
+            live_zombie_spawn_func()
             thread = threading.Thread(target=text_to_speech, args=(message,))
             thread.start()
         elif message.lower() == "tnt":
