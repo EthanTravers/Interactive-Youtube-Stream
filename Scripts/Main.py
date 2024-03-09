@@ -69,6 +69,19 @@ live_warden_spawn = "summon warden -113 130 370"
 
 threading.Thread(target=play_audio).start()
 
+
+def zombie_spawn():
+    headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    data = {
+        'command': live_zombie_spawn,
+        'time': ''
+    }
+    response = requests.post(command_url, headers=headers, data=data)
+    print(response)
+
 print("Input your stream id: ")
 chat = pytchat.create(video_id=input())
 while chat.is_alive():
@@ -89,16 +102,11 @@ while chat.is_alive():
             thread = threading.Thread(target=text_to_speech, args=(message,))
             thread.start()
         elif message.lower() == "zombie":
-            headers = {
-                'accept': '*/*',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            data = {
-                'command': live_zombie_spawn,
-                'time': ''
-            }
-            response = requests.post(command_url, headers=headers, data=data)
-            print(response)
+            zombie_spawn()
+            zombie_spawn()
+            zombie_spawn()
+            zombie_spawn()
+            zombie_spawn()
             thread = threading.Thread(target=text_to_speech, args=(message,))
             thread.start()
         elif message.lower() == "tnt":
